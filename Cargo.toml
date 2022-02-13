@@ -1,0 +1,44 @@
+[package]
+name = "web-reference"
+version = "0.1.0"
+edition = "2021"
+description = "Reference of HTML Tag Specifications"
+license = "MIT or Apache-2.0"
+include = ["src/**/*", "Cargo.toml", "LICENSE-MIT", "README.md"]
+homepage = "https://github.com/Nejat/web-reference"
+repository = "https://github.com/Nejat/web-reference"
+authors = ["Nejat<nejatoz@gmail.com>"]
+readme = "readme.md"
+keywords = ["html", "reference"]
+categories = ["Web programming"]
+
+[profile.optimized]
+inherits = "release"
+opt-level = 3  # all optimizations
+lto = true
+codegen-units = 1
+
+[dependencies]
+lazy-regex = { version = "2" }
+indexmap = { version = "1", optional = true }
+serde = { version = "1", optional = true }
+
+[dev-dependencies]
+serde_json = { version = "1" }
+
+[[example]]
+name = "using-web-reference"
+path = "examples/using-web-reference.rs"
+required-features = ["deserialize", "ordered-map"]
+
+[features]
+default = []
+serialize = ["serde/derive", "indexmap/serde"]
+deserialize = ["serde/derive", "indexmap/serde"]
+ordered-map = ["indexmap", "serde_json/indexmap"]
+
+[workspace]
+members = [
+    ".",
+    "packages/web-reference-factory"
+]
