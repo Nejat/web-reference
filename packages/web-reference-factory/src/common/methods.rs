@@ -25,7 +25,7 @@ pub fn absolute_url(base: &str, address: &str) -> Result<Url> {
 #[cfg(feature = "analyze")]
 pub fn add_attr_values(attribute: &str, values: &AttributeValues) {
     if values.len() > 2 && values.iter().all(|(_ky, val)| val.name != "auto") {
-        return
+        return;
     }
 
     let mut attr_values = ATTR_VALUES.lock();

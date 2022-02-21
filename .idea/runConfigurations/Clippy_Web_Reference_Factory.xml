@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Example" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-    <option name="command" value="run --example web-reference --features deserialize,ordered-map,serde_json --release" />
+  <configuration default="false" name="Clippy Web Reference Factory" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+    <option name="command" value="clippy --package web-reference-factory --features build --release" />
     <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-    <option name="channel" value="DEFAULT" />
+    <option name="channel" value="NIGHTLY" />
     <option name="requiredFeatures" value="true" />
     <option name="allFeatures" value="false" />
     <option name="emulateTerminal" value="false" />

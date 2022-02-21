@@ -30,7 +30,7 @@ pub fn run_factory() -> Result<()> {
 
         let mut attributes_categorized = build::categorize_attributes(&attributes)?;
         let mut attributes = build::build_attributes(
-            attributes, global_attributes, tag_details, &attributes_categorized
+            attributes, global_attributes, tag_details, &attributes_categorized,
         )?;
 
         attributes_categorized.sort_keys();
@@ -46,7 +46,7 @@ pub fn run_factory() -> Result<()> {
 
         let mut events = build::build_events(events, events_attrs)?;
         let mut events_categorized = build::categorize_events(events_by_category)?;
-        let mut event_objects = build::event_objects(event_objects)?;
+        let mut event_objects = build::event_objects(&event_objects)?;
 
         events.sort_keys();
         events_categorized.sort_keys();

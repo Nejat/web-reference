@@ -154,6 +154,7 @@ impl From<&str> for Description {
     fn from(src: &str) -> Self {
         // normalize chopped up text
 
+        // remove carriage returns, trim each line and trim each sentence
         let description = src.replace(' ', "")
             .split('\n')
             .map(str::trim)
@@ -164,7 +165,10 @@ impl From<&str> for Description {
             .collect::<Vec<_>>()
             .join(".");
 
+        // inject space at end of sentence if missing
         let description = regex_replace_all!(r#"\.([A-Z])"#, &description, |_, begin| format!(". {begin}"));
+
+        // collapse all multiple spaces into a single space
         let description = regex_replace_all!(r#"\s+"#, &description, |_| " ");
 
         Self(description.to_string())

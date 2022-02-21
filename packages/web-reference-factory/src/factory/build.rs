@@ -91,14 +91,14 @@ pub fn build_events(events: RawEvents, events_attrs: RawAttributes) -> Result<Ev
             };
 
             let belongs_to = match event_belongs_to.get(&event) {
-                Some(raw_belongs_to) => parse_event_belongs_to(&raw_belongs_to)?,
+                Some(raw_belongs_to) => parse_event_belongs_to(raw_belongs_to)?,
                 None => EventBelongsTo::NotDefined
             };
 
             let event_objects = objects.into_iter().map(|(obj, _url)| obj).collect();
 
             let event = Event {
-                name: event.to_string(),
+                name: event,
                 belongs_to,
                 details,
                 description: Description::from(desc),
@@ -167,7 +167,7 @@ pub fn build_tags(tags: &RawTagsByCategory, details: &RawTagsDetails) -> Result<
                     }).unwrap()?;
 
             let (supported, attributes, event_attributes, global_attributes, optional_attributes) =
-                details.get(name).unwrap_or_else(|| &(None, None, None, None, None));
+                details.get(name).unwrap_or(&(None, None, None, None, None));
 
             let supported = supported.clone().unwrap_or_default();
 
@@ -228,7 +228,7 @@ pub fn categorize_events(events_by_category: RawEventsByCategory) -> Result<Even
 
             let mut category_details = EventCategoryDetails {
                 category,
-                description: Description::from(desc.clone().unwrap_or_default()),
+                description: Description::from(desc.unwrap_or_default()),
                 events: events.iter().cloned().collect(),
             };
 
@@ -258,10 +258,10 @@ pub fn categorize_tags(tags_by_category: &RawTagsByCategory) -> Result<TagsCateg
 fn collect_tag_attributes(tag_details: RawTagsDetails) -> Attributes {
     let mut attrs = tag_details.into_iter()
         .flat_map(|(tag, (_supported, attributes, _events, _global_attrs, optional_attrs))| {
-            let attributes = attributes.clone().unwrap_or_default().into_iter()
+            let attributes = attributes.unwrap_or_default().into_iter()
                 .map(|(name, attr)| (name, (tag.clone(), attr)));
 
-            let optional = optional_attrs.clone().unwrap_or_default().into_iter()
+            let optional = optional_attrs.unwrap_or_default().into_iter()
                 .map(|(name, attr)| (name, (tag.clone(), attr)));
 
             attributes.chain(optional)
@@ -330,6 +330,7 @@ fn parse_tag_category(src: &str) -> Result<TagCategory> {
     })
 }
 
-pub fn event_objects(_objects: Vec<String>) -> Result<EventObjects> {
+#[allow(clippy::unnecessary_wraps)] // future impl
+pub fn event_objects(_objects: &[String]) -> Result<EventObjects> {
     Ok(EventObjects::default())
 }

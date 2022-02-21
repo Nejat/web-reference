@@ -188,7 +188,7 @@ impl TryFrom<AttributeValues> for AttributeValue {
     fn try_from(source: AttributeValues) -> Result<Self, Self::Error> {
         Ok(if source.is_empty() {
             Self::None
-        } else if source.len() > 2 && source.values().all(|v| v.name != "auto" ){
+        } else if source.len() > 2 && source.values().all(|v| v.name != "auto") {
             Self::Values(source)
         } else {
             let attr_values_set = source.keys().cloned().collect::<Vec<_>>().join(", ");
@@ -201,7 +201,7 @@ impl TryFrom<AttributeValues> for AttributeValue {
                         acc.combine(&Description::from(format!("{}: {}", next.name, next.description)))
                     } else {
                         acc.combine(&next.description)
-                    }
+                    },
                 );
 
             match attr_values_set.as_str() {

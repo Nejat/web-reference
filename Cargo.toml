@@ -22,20 +22,24 @@ codegen-units = 1
 lazy-regex = { version = "2" }
 indexmap = { version = "1", optional = true }
 serde = { version = "1", optional = true }
-
-[dev-dependencies]
-serde_json = { version = "1" }
+serde_json = { version = "1", optional = true }
 
 [[example]]
-name = "using-web-reference"
+name = "web-reference"
 path = "examples/using-web-reference.rs"
-required-features = ["deserialize", "ordered-map"]
+required-features = ["deserialize", "ordered-map", "serde_json"]
+
+[[example]]
+name = "html5-specs"
+path = "examples/using-html5-specs.rs"
+required-features = ["html5-specs"]
 
 [features]
 default = []
-serialize = ["serde/derive", "indexmap/serde"]
-deserialize = ["serde/derive", "indexmap/serde"]
-ordered-map = ["indexmap", "serde_json/indexmap"]
+deserialize = ["serde/derive"]
+html5-specs = ["deserialize", "serde_json"]
+ordered-map = ["indexmap", "indexmap/serde"]
+serialize = ["serde/derive"]
 
 [workspace]
 members = [

@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Clippy All" type="CompoundRunConfigurationType">
+    <toRun name="Clippy Examples" type="CargoCommandRunConfiguration" />
+    <toRun name="Clippy Web Reference" type="CargoCommandRunConfiguration" />
+    <toRun name="Clippy Web Reference Factory" type="CargoCommandRunConfiguration" />
+    <method v="2" />
+  </configuration>
+</component>
