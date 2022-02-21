@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Clippy Unoptimized" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
-    <option name="command" value="clippy --all-features --workspace --examples --no-deps" />
+  <configuration default="false" name="Factory Build" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+    <option name="command" value="run --package web-reference-factory --features build --release" />
     <option name="workingDirectory" value="file://$PROJECT_DIR$" />
     <option name="channel" value="NIGHTLY" />
     <option name="requiredFeatures" value="true" />

@@ -8,13 +8,25 @@ include = ["pacakges/web-reference-factory/src/**/*", "Cargo.toml", "LICENSE-MIT
 homepage = "https://github.com/Nejat/web-reference"
 repository = "https://github.com/Nejat/web-reference"
 authors = ["Nejat<nejatoz@gmail.com>"]
+readme = "readme.md"
 keywords = ["html", "reference"]
 categories = ["Web programming"]
 
 [dependencies]
-reqwest = { version = "0.11" }
+anyhow = { version = "1" }
+indexmap = { version = "1", features = ["serde"] }
+itertools = { version = "0.10" }
+lazy-regex = { version = "2" }
+lazy_static = { version = "1" }
+maplit = { version = "1" }
+parking_lot = { version = "0.12" }
+reqwest = { version = "0.11", features = ["blocking"] }
 select = { version = "0.5" }
 serde = { version = "1", features = ["derive"] }
-serde_json = { version = "1" }
+serde_json = { version = "1", features = ["indexmap"] }
 thiserror = { version = "1" }
 web-reference = { path = "../../../web-reference", features = ["serialize", "ordered-map"] }
+
+[features]
+build = []
+analyze = []
