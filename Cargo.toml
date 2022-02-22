@@ -19,6 +19,7 @@ lto = true
 codegen-units = 1
 
 [dependencies]
+const_format = { version = "0.2", optional = true }
 lazy-regex = { version = "2" }
 indexmap = { version = "1", optional = true }
 serde = { version = "1", optional = true }
@@ -37,7 +38,7 @@ required-features = ["html5-specs"]
 [features]
 default = []
 deserialize = ["serde/derive"]
-html5-specs = ["deserialize", "serde_json"]
+html5-specs = ["deserialize", "serde_json", "const_format"]
 ordered-map = ["indexmap", "indexmap/serde"]
 serialize = ["serde/derive"]
 

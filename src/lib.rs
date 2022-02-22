@@ -11,6 +11,9 @@
 
 #![doc = include_str ! ("../readme.md")]
 
+#[cfg(feature = "const_format")]
+#[macro_use]
+extern crate const_format;
 #[macro_use]
 extern crate lazy_regex;
 #[cfg(any(any(feature = "serialize", feature = "deserialize")))]
