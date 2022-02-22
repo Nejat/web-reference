@@ -1,6 +1,30 @@
 use crate::prelude::*;
 
+const EVENT_PREFIX: &str = "on";
+
 impl WebReference {
+    ///
+    #[must_use]
+    pub fn is_valid_attribute(&self, attribute: &str) -> bool {
+        self.attributes.contains_key(attribute)
+    }
+
+    ///
+    #[must_use]
+    pub fn is_valid_event(&self, event: &str) -> bool {
+        if event.starts_with(EVENT_PREFIX) {
+            self.events.contains_key(event)
+        } else {
+            self.events.contains_key(&format!("{EVENT_PREFIX}{event}"))
+        }
+    }
+
+    ///
+    #[must_use]
+    pub fn is_valid_tag(&self, tag: &str) -> bool {
+        self.tags.contains_key(tag)
+    }
+
     ///
     #[must_use]
     pub fn get_attribute(&self, attribute: &str) -> Option<&Attribute> {
