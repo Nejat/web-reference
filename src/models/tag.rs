@@ -126,3 +126,25 @@ pub enum TagCategory {
     ///
     Programming,
 }
+
+impl<'a> TryFrom<&'a str> for TagCategory {
+    type Error = String;
+
+    fn try_from(value: &'a str) -> Result<Self, Self::Error> {
+        Ok(match value {
+            "basic" => Self::Basic,
+            "formatting" => Self::Formatting,
+            "formsinput" | "forms-input" | "forms" => Self::FormsInput,
+            "frames" => Self::Frames,
+            "images" => Self::Images,
+            "audiovideo" | "audio-video" => Self::AudioVideo,
+            "links" => Self::Links,
+            "lists" => Self::Lists,
+            "tables" => Self::Tables,
+            "stylessemantics" | "style" => Self::StylesSemantics,
+            "meta" => Self::Meta,
+            "programming" => Self::Programming,
+            unexpected => return Err(format!("{unexpected:?} is not a valid tag category"))
+        })
+    }
+}
