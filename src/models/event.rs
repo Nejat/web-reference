@@ -106,6 +106,34 @@ pub enum EventCategory {
     MiscellaneousEvents,
 }
 
+impl TryFrom<&str> for EventCategory {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        Ok(match value {
+            "window" | "window_events" | "windowevents" =>
+                Self::WindowEvents,
+            "forms" | "form" | "form_events" | "formevents" =>
+                Self::FormEvents,
+            "keyboard" | "keyboard_events" | "keyboardevents" =>
+                Self::KeyboardEvents,
+            "mouse" | "mouse_events" | "mouseevents" =>
+                Self::MouseEvents,
+            "drag" | "drag_events" | "dragevents" =>
+                Self::DragEvents,
+            "clipboard" | "clipboard_events" | "clipboardevents" =>
+                Self::ClipboardEvents,
+            "media" | "media_events" | "mediaevents" =>
+                Self::MediaEvents,
+            "misc" | "misC_events" | "miscevents" |
+            "miscellaneous" | "miscellaneous_events" | "miscellaneousevents" =>
+                Self::MiscellaneousEvents,
+            unexpected =>
+                return Err(format!("{unexpected:?} is not a valid event category"))
+        })
+    }
+}
+
 ///
 #[cfg_attr(feature = "deserialize", derive(Deserialize))]
 #[cfg_attr(feature = "serialize", derive(Serialize))]
