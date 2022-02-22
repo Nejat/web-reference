@@ -191,7 +191,7 @@ pub fn scrape_events_page() -> Result<RawEvents> {
                 anyhow!("Exception parsing event & link: {DOC_TOPIC} - {DOC_URL}\n  html: {html:?}\n  Err: {err}")
             })?;
 
-        event.insert_str(0, EVENT_PREFIX);
+        if !event.starts_with(EVENT_PREFIX) { event.insert_str(0, EVENT_PREFIX); }
 
         let details = match url {
             Some(url) => Some(scrape_event_details_page(&url, &event)?),
@@ -319,7 +319,7 @@ fn parse_event_category(events: Node) -> Result<RawEventNames> {
 
         let (mut event, _url) = parse_label_and_url(&columns.next(), UrlOption::Optional, BASE_TAGS_URL)?;
 
-        if event.starts_with(EVENT_PREFIX) { event.insert_str(0, EVENT_PREFIX); }
+        if !event.starts_with(EVENT_PREFIX) { event.insert_str(0, EVENT_PREFIX); }
 
         Ok(event)
     }).collect::<Result<RawEventNames>>()
@@ -333,7 +333,7 @@ fn parse_event_details(details: &str) -> (String, Option<AlternativeEvents>) {
             .map(|v| {
                 let mut alt = v.trim().to_string();
 
-                alt.insert_str(0, EVENT_PREFIX);
+                if !alt.starts_with(EVENT_PREFIX) { alt.insert_str(0, EVENT_PREFIX); }
 
                 alt
             })
